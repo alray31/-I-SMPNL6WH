@@ -1,0 +1,92 @@
+esphome:
+  name: 
+  comment: illume I-SMPNL6WH
+
+bk72xx:
+  board: wb2l
+
+logger:
+  baud_rate: 0
+
+web_server:
+
+captive_portal:
+
+mdns:
+
+api:
+  password: ""
+
+ota:
+  platform: esphome
+  password: ""
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  power_save_mode: none
+  
+  ap:
+    ssid: "I-SMPNL6WH-fallback"
+    password: !secret ap_password
+
+text_sensor:
+  - platform: libretiny
+    version:
+      name: LibreTiny Version
+
+preferences:
+  flash_write_interval: 10min
+
+output:
+  - platform: libretiny_pwm
+    id: output_red
+    pin: P26
+    frequency: 2000 Hz
+    max_power: 1.0
+  - platform: libretiny_pwm
+    id: output_green
+    pin: P24
+    frequency: 2000 Hz
+    max_power: 1.0
+  - platform: libretiny_pwm
+    id: output_blue
+    frequency: 2000 Hz
+    pin: P6
+    max_power: 1.0
+  - platform: libretiny_pwm
+    id: output_cold
+    pin: P8
+    frequency: 2000 Hz
+    max_power: 0.72   # limits total cold+warm white to prevent reboot in 4000K range (over current) 
+  - platform: libretiny_pwm
+    id: output_warm
+    pin: P7
+    frequency: 2000 Hz
+    max_power: 0.72   # limits total cold+warm white to prevent reboot in 4000K range (over current) 
+
+light:
+  - platform: rgbww
+    id: light_rgbww
+    name: "illume I-SMPNL6WH"
+    icon: "mdi:light-recessed"
+    default_transition_length: 1s
+    color_interlock: true
+    constant_brightness: true
+    restore_mode: RESTORE_DEFAULT_OFF # on power resume, keep light off
+    gamma_correct: 2.4
+    cold_white_color_temperature: 6500 K
+    warm_white_color_temperature: 2700 K
+    red: output_red
+    green: output_green
+    blue: output_blue
+    cold_white: output_cold
+    warm_white: output_warm
+    effects:
+      - random:
+          transition_length: 500ms
+          update_interval: 1s
+      - strobe:
+      - pulse:
+          transition_length: 1s
+          update_interval: 2s
