@@ -1,5 +1,5 @@
 # Convert Illume / Dals Connect I-SMPNL6WH recessed light to ESPHome 
-This yaml is provided as a base to convert your Ilumme lights to control them using ESPHome insteand of the Dals Connect app.
+This yaml is provided as a base to convert your Illume lights to control them using ESPHome insteand of the Dals Connect app.
 
 <img width="2000" height="2000" alt="image" src="https://github.com/user-attachments/assets/cd533dff-c74f-45dc-8b2d-02964f540a63" />
 
